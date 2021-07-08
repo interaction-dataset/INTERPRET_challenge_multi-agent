@@ -3,17 +3,16 @@
 In this track, the input is M agents' motion information including coordinates, velocities, yaw, vehicle length and width in the observed 1 second (10 frames) as well as the cooresponding HD map. The target is to predict N (<= M) agents' coordinates and yaw in the future 3 seconds (30 frames). Note that the N agents are selected because they are fully observable during the 1+3 seconds. In addition, one of the N agents is denoted as the 'interesting agent' (csv column 'interesting_agent' as 1) to serve as the ego agent during the evaluation process. 
 
 ## Submission
-For each scenario X like (DR_CHN_Merging_ZS0), there should be a single file 'X_sub.csv'. The following columns would be used during the evaluation: case_id, track_id, frame_id, timestamp_ms, x1, y1, psi_rad1, x2, y2, psi_rad2, x3, y3, psi_rad3, x4, y4, psi_rad4, x5, y5, psi_rad5, x6, y6, psi_rad6. The order of rows and columns could be arbitrary. 'xi, yi, psi_radi' represents the predicted coordinate and yaw for the vehicle 'track_id' at 'timestamp_ms' in the modality i. 
+For each scenario X like (DR_CHN_Merging_ZS0), there should be a single file 'X_sub.csv'. The following columns would be used during the evaluation: case_id, track_id, frame_id, timestamp_ms, x1, y1, psi_rad1, x2, y2, psi_rad2, x3, y3, psi_rad3, x4, y4, psi_rad4, x5, y5, psi_rad5, x6, y6, psi_rad6. The order of rows and columns could be arbitrary. 'xi, yi, psi_radi' represents the predicted coordinate and yaw for the vehicle 'track_id' at 'timestamp_ms' in the modality i. Up to 6 modalities would be taken into consideration and participants could choose not to submit less than 6 modalities.
 
-All vehicles in the input data with the 'track_to_predict' column as 1 should has predictions for 30 timestamps. Each submission should contain exactly 6 modalities???????? where the modality with higher confidence should has smaller index. In other words, modalaity 1 has the highest confidence and modality 6 has the lowest.
+All vehicles in the input data with the 'track_to_predict' column as 1 should has predictions for 30 timestamps. Each submission could contain up to 6 modalities where the modality with higher confidence should has smaller index. In other words, modalaity 1 has the highest confidence and modality 6 has the lowest.
 
 Csv files for all scenarios should be packed into **a single zip** file for submission.
 
 [DR_CHN_Merging_ZS0_sub.csv](https://github.com/jiaxiaosong1002/INTERPRET_MultiAgent_Track/blob/main/DR_CHN_Merging_ZS0_sub.csv) is an example for submission for the scenario DR_CHN_Merging_ZS0. Note that this example file only contains 3 cases and the input is random number.
 
 ## Metrics
-All metrics are averaged over all cases of all scenarios??????????(or then averaged over all scenarios).
-The ranking of the challenge is based on the Consistent-minJointMR.
+All metrics are averaged over all cases of all scenarios. The ranking of the challenge is based on the **Consistent-minJointMR**.
 
 ### minJointADE
 Minimum Joint Average Displacement Error (minJointADE) represents the minimum value of the euclid distance averaged by time and all agents between the ground truth and modality with the lowest value. The minJointADE of a single case is calculated as:
@@ -39,7 +38,7 @@ Similar to the minJointADE, this metric excludes the interesting agent in the ev
 ### CrossCollisionRate
 Cross Collision Rate represents the frequency of collisions happening among the predictions in each modalaity. It is a value between 0~1. For a modality of a case, excluding the interesting vehicle, if there is **any** of the two vehciles has collisions at **any** timestampes, this modality is considered as 'having collosion'. Then, for the 6 modalities of a case, we calculate the ratio of collosion happening by collision_num/6 where collosion_num is between 0 and 6. The final value is averaged over all cases.
 
-This metric is to evaluate the consistency of the joint prediction in each modality. It punishes the predictions where there is collosions in their predictions. ?????????? clarify our intention!!!!
+This metric is to evaluate the consistency of the joint prediction in each modality. It punishes the predictions where there is collosions in their predictions.
 
 Note that we **do not consider** the collisions between the interesting agent and other agents because in the practical application the prediction stage serves for the planning stage and the future motion of the ego agent should be decided by the planning stage.
  
@@ -70,5 +69,5 @@ Consistent-minJointMR has the same computation process except that when taking t
 This metric is to encourge the prediction model to make consistent predictions. If a modality in its prediction contains collisions, it 'wastes' this attempt. It is the ranking metric for the challenge.
 
 ### Regarding the Predicted Yaw Angle
-Many motion prediction models only output x and y. In this challenge, since the collision detecton has taken the vehicles' length and width into consideration, we need the vehicles' yaw angle as well. We strongly suggest the participants to visualize their predictions in the form of the bounding box. If the yaw angle is calculated by first taking difference over time to get velocity and then taking the arctan to obtain yaw, the unsmoothed yaw angle may cause collisions. ????????Suggestion for smoothing?????
+Many motion prediction models only output x and y. In this challenge, since the collision detecton has taken the vehicles' length and width into consideration, we need the vehicles' yaw angle as well. We strongly suggest the participants to visualize their predictions in the form of the bounding box. If the yaw angle is calculated by first taking difference over time to get velocity and then taking the arctan to obtain yaw, the unsmoothed yaw angle may cause collisions.
 
