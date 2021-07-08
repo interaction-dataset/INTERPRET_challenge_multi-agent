@@ -9,7 +9,7 @@ All vehicles in the input data with the 'track_to_predict' column as 1 should ha
 
 Csv files for all scenarios should be packed into **a single zip** file for submission.
 
-[DR_CHN_Merging_ZS0_sub.csv](https://github.com/jiaxiaosong1002/INTERPRET_MultiAgent_Track/blob/main/DR_CHN_Merging_ZS0_sub.csv) is an example for submission for the scenario DR_CHN_Merging_ZS0. Note that this example file only contains 3 cases and the input is random number.
+[DR_CHN_Merging_ZS0_sub.csv](https://github.com/interaction-dataset/INTERPRET_challenge_multi-agent/blob/main/DR_CHN_Merging_ZS0_sub.csv) is an example for submission for the scenario DR_CHN_Merging_ZS0. Note that this example file only contains 3 cases and the input is random number.
 
 ## Metrics
 All metrics are averaged over all cases of all scenarios. The ranking of the challenge is based on the **Consistent-minJointMR**.
@@ -43,7 +43,7 @@ This metric is to evaluate the consistency of the joint prediction in each modal
 Note that we **do not consider** the collisions between the interesting agent and other agents because in the practical application the prediction stage serves for the planning stage and the future motion of the ego agent should be decided by the planning stage.
  
 ##### Collision Detection Process
-Instead of simply considering each vehicle as a point, we consider the length and width of the vehicle in the collision detection process. We use a list of circles to represent a vehicle at each timestamp.  If the distance between any two circles' origins of the given two vehicles is lower than a threshold, it is considered as they have a collision at that timestamp. [calculate_collision.py ](https://github.com/jiaxiaosong1002/INTERPRET_MultiAgent_Track/blob/main/calculate_collision.py) includes a function which could output the circle lists for a given vehicle and a function which could output the collision threshold of two vehicles.
+Instead of simply considering each vehicle as a point, we consider the length and width of the vehicle in the collision detection process. We use a list of circles to represent a vehicle at each timestamp.  If the distance between any two circles' origins of the given two vehicles is lower than a threshold, it is considered as they have a collision at that timestamp. [calculate_collision.py ](https://github.com/interaction-dataset/INTERPRET_challenge_multi-agent/blob/main/calculate_collision.py) includes a function which could output the circle lists for a given vehicle and a function which could output the collision threshold of two vehicles.
 
 ### EgoCollisionRate
 Ego Collision Rate represents the collisions happening between the **ground truth** of the interesting agent and the **predictions** in each case.  It is a value between 0~1. For a modality of a case, if there is a collision between the ground truth of the interesting agent and **any** of other agents' predictions at **any** timestampes, this modality is considered as 'having collosion'. If **at least one** modality does not have collisions, then the case is considered to be 'no collision' - 0. Otherwise, the case is considered as 'having collision' - 1. The final value is averaged over all cases.
