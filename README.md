@@ -1,11 +1,11 @@
-# INTERPRET Multi-Agent Track
+# INTERPRET Multi-Agent Prediction
 
-In this track, the input is M agents' motion information including coordinates, velocities, yaw, vehicle length and width in the observed 1 second (10 frames) as well as the cooresponding HD map. The target is to predict N (<= M) agents' coordinates and yaw in the future 3 seconds (30 frames). Note that the N agents are selected because they are fully observable during the 1+3 seconds. In addition, one of the N agents is denoted as the 'interesting agent' (csv column 'interesting_agent' as 1) to serve as the ego agent during the evaluation process. 
+In this part, the input is M agents' motion information including coordinates, velocities, yaw, vehicle length and width in the observed 1 second (10 frames) as well as the cooresponding HD map. The target is to predict N (<= M) agents' coordinates and yaw in the future 3 seconds (30 frames). Note that the N agents are selected because they are fully observable during the 1+3 seconds. In addition, one of the N agents is denoted as the 'interesting agent' (csv column 'interesting_agent' as 1) to serve as the ego agent during the evaluation process. 
 
 ## Submission
-Please first read [the guideline of the single agnet track](http://challenge.interaction-dataset.com/leader-board-introduction) for the basic information about the input data and submission. Most of them still applies in the multi-agent track.
+Please first read [the old guideline](http://challenge.interaction-dataset.com/leader-board-introduction) for the basic information about the input data and submission. Most of them still applies.
 
-The following are the changed parts in the multi-agent track:
+The following are the changed parts:
 
 For each scenario X like (DR_CHN_Merging_ZS0), there should be a single file 'X_sub.csv'. The following columns would be used during the evaluation: case_id, track_id, frame_id, timestamp_ms, x1, y1, psi_rad1, x2, y2, psi_rad2, x3, y3, psi_rad3, x4, y4, psi_rad4, x5, y5, psi_rad5, x6, y6, psi_rad6. The order of rows and columns could be arbitrary. 'xi, yi, psi_radi' represents the predicted coordinate and yaw for the vehicle 'track_id' at 'timestamp_ms' in the modality i. Up to 6 modalities would be taken into consideration. Participants could submit less than 6 modalities (like only x1, y1, psi_rad1).
 
@@ -16,7 +16,7 @@ Csv files for all scenarios should be packed into **a single zip** file for subm
 [DR_CHN_Merging_ZS0_sub.csv](https://github.com/interaction-dataset/INTERPRET_challenge_multi-agent/blob/main/DR_CHN_Merging_ZS0_sub.csv) is an example for submission for the scenario DR_CHN_Merging_ZS0. Note that this example file only contains 3 cases and the input is random number.
 
 ## Metrics
-All metrics are averaged over all cases of all scenarios. The ranking of the challenge is based on the **Consistent-minJointMR**.
+All metrics are averaged over all cases of all scenarios. The ranking of multi-agent prediction is based on the **Consistent-minJointMR**.
 
 ### minJointADE
 Minimum Joint Average Displacement Error (minJointADE) represents the minimum value of the euclid distance averaged by time and all agents between the ground truth and modality with the lowest value. The minJointADE of a single case is calculated as:
@@ -25,7 +25,7 @@ Minimum Joint Average Displacement Error (minJointADE) represents the minimum va
 
 
 
-where N is the number of agents to be predicted in this case, T is the number of predicted timestamps which is 30 in this challenge, K is the number of modalities which is 6 in this challenge, $\hat{x}$ and $\hat{y}$ means the ground truth. The final value is averaged over all cases.
+where N is the number of agents to be predicted in this case, T is the number of predicted timestamps which is 30 in this challenge, K is the number of modalities in this challenge, $\hat{x}$ and $\hat{y}$ means the ground truth. The final value is averaged over all cases.
 
 Note that this metric excludes the interesting agent in the evaluation process because in the practical application the prediction stage serves for the planning stage and there is no need to predict the ego agent.
 
@@ -34,7 +34,7 @@ Minimum Joint Final Displacement Error (minJointFDE) represents the minimum valu
 
 ![](http://latex.codecogs.com/gif.latex?\\text{minJointFDE}=\\min\\limits_{k\\in\\{1,...,K\\}}\\frac1{N}\\sum\\limits_{n}\\sqrt{(\\hat{x}_{n,T}-x_{n,T}^k)^2+(\\hat{y}_{n,T}-y_{n,T}^k)^2})
 
-where N is the number of agents to be predicted in this case, T is the final predicted timestamps which is 30 in this challenge, K is the number of modalities which is 6 in this challenge, $\hat{x}$ and $\hat{y}$ means the ground truth. The final value is averaged over all cases.
+where N is the number of agents to be predicted in this case, T is the final predicted timestamps which is 30 in this challenge, K is the number of modalities in this challenge, $\hat{x}$ and $\hat{y}$ means the ground truth. The final value is averaged over all cases.
 
 Similar to the minJointADE, this metric excludes the interesting agent in the evaluation process.
 
@@ -70,10 +70,40 @@ Similar to minJointADE and minJointFDE, we do not calculate the ego agent's MR i
 ### Consistent-minJointMR
 Consistent-minJointMR has the same computation process except that when taking the minimum MR over all modalities as the case's MR, we only consider those modalities without CrossCollision. If all modalities have collisions, this case's Consistent-minJointMR is considered as 1 directly.
 
-This metric is to encourge the prediction model to make consistent predictions. If a modality in its prediction contains collisions, it 'wastes' this attempt. It is the ranking metric for the challenge.
+This metric is to encourge the prediction model to make consistent predictions. If a modality in its prediction contains collisions, it 'wastes' this attempt. It is the ranking metric.
 
 ### Regarding the Predicted Yaw Angle
 Many motion prediction models only output x and y. In this challenge, since the collision detecton has taken the vehicles' length and width into consideration, we need the vehicles' yaw angle as well. We strongly suggest the participants to visualize their predictions in the form of the bounding box. If the yaw angle is calculated by first taking difference over time to get velocity and then taking the arctan to obtain yaw, the unsmoothed yaw angle may cause collisions.
 
-### Acknowledgement
+# INTERPRET Single-Agent Prediction
+The key difference between the single agent and multi-agent prediction is that: the single agent prediction only outputs one agent's future motion in the scene. In each case of multi-agent prediction, for each fully observable vehicle, we generate a case. As a result, the single-agent prediction evaluates model's performance on all agents' marginal multi-modal distribution while the multi-agent prediction on all agents' marginal multi-modal distribution.
+
+## Submission for Single-Agent Prediction in the ICAPS21/ICCV21 Stage
+
+The procedure is the same as the multi-agent prediction mentioned below except that: the 'interesting agent' and 'psi_radi' column are not needed.
+
+## Metrics for Single-Agent Prediction in the ICAPS21/ICCV21 Stage
+
+All metrics are averaged over all cases of all scenarios. The ranking of the single agent prediction is based on **MR**.
+
+### minADE
+It is a simplified version of minJointADE since there is only one vehicle to be predicted:
+
+![](http://latex.codecogs.com/gif.latex?\\text{minADE}=\\min\\limits_{k\\in\\{1,...,K\\}}\\frac1{T}\\sum\\limits_{t}\\sqrt{(\\hat{x}_{t}-x_{t}^k)^2+(\\hat{y}_{t}-y_{t}^k)^2})
+where T is the number of predicted timestamps which is 30 in this challenge, K is the number of modalities in this challenge, $\hat{x}$ and $\hat{y}$ means the ground truth. The final value is averaged over all cases.
+
+### minFDE
+
+Similarly, the minFDE is defined as:
+
+![](http://latex.codecogs.com/gif.latex?\\text{minFDE}=\\min\\limits_{k\\in\\{1,...,K\\}}\\sqrt{(\\hat{x}_{T}-x_{T}^k)^2+(\\hat{y}_{T}-y_{T}^k)^2})
+where T is the number of predicted timestamps which is 30 in this challenge, K is the number of modalities in this challenge, $\hat{x}$ and $\hat{y}$ means the ground truth. The final value is averaged over all cases.
+
+### MR
+
+Miss rate is a simplified version of minJointMR. For each case, if all modalities are 'miss', then this case is a 'miss' - 1. Otherwise, this case is 0.
+
+
+
+## Acknowledgement
 Some metrics are inspired by the [Waymo Open Dataset - Motion Prediction Challenge](https://waymo.com/open/challenges/2021/motion-prediction/) and [Argoverse Motion Forecasting Competition](https://eval.ai/web/challenges/challenge-page/454/overview).
