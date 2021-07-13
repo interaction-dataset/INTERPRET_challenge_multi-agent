@@ -76,11 +76,11 @@ This metric is to encourge the prediction model to make consistent predictions. 
 Many motion prediction models only output x and y. In this challenge, since the collision detecton has taken the vehicles' length and width into consideration, we need the vehicles' yaw angle as well. We strongly suggest the participants to visualize their predictions in the form of the bounding box. If the yaw angle is calculated by first taking difference over time to get velocity and then taking the arctan to obtain yaw, the unsmoothed yaw angle may cause collisions.
 
 # INTERPRET Single-Agent Prediction
-The key difference between the single agent and multi-agent prediction is that: the single agent prediction only outputs one agent's future motion in the scene. In each case of multi-agent prediction, for each fully observable vehicle, we generate a case. As a result, the single-agent prediction evaluates model's performance on all agents' marginal multi-modal distribution while the multi-agent prediction on all agents' marginal multi-modal distribution.
+The key difference between the single agent and multi-agent prediction is that: the single agent prediction only outputs one agent's future motion in the scene. In a case of multi-agent prediction, we generate a case in the single-agent prediction for each fully observable vehicle. As a result, the single-agent prediction evaluates model's performance on all agents' marginal multi-modal distribution while the multi-agent prediction on all agents' joint multi-modal distribution.
 
 ## Submission for Single-Agent Prediction in the ICAPS21/ICCV21 Stage
 
-The procedure is the same as the multi-agent prediction mentioned below except that: the 'interesting agent' and 'psi_radi' column are not needed.
+The procedure is the same as the multi-agent prediction mentioned above except that: the 'interesting agent' and 'psi_radi' column are not needed.
 
 ## Metrics for Single-Agent Prediction in the ICAPS21/ICCV21 Stage
 
