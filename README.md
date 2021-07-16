@@ -75,34 +75,9 @@ This metric is to encourge the prediction model to make consistent predictions. 
 ### Regarding the Predicted Yaw Angle
 Many motion prediction models only output x and y. In this challenge, since the collision detecton has taken the vehicles' length and width into consideration, we need the vehicles' yaw angle as well. We strongly suggest the participants to visualize their predictions in the form of the bounding box. If the yaw angle is calculated by first taking difference over time to get velocity and then taking the arctan to obtain yaw, the unsmoothed yaw angle may cause collisions.
 
-# INTERPRET Single-Agent Prediction
+# Note
+For guidance of **INTERPRET Single Agent Prediction in the ICAPS21/ICCV21 Stage**, please visit https://github.com/interaction-dataset/INTERPRET_challenge_single-agent.
 The key difference between the single agent and multi-agent prediction is that: the single agent prediction only outputs one agent's future motion in the scene. In a case of multi-agent prediction, we generate a case in the single-agent prediction for each fully observable vehicle. As a result, the single-agent prediction evaluates model's performance on all agents' marginal multi-modal distribution while the multi-agent prediction on all agents' joint multi-modal distribution.
-
-## Submission for Single-Agent Prediction in the ICAPS21/ICCV21 Stage
-
-The procedure is the same as the multi-agent prediction mentioned above except that: the 'interesting agent' and 'psi_radi' column are not needed.
-
-## Metrics for Single-Agent Prediction in the ICAPS21/ICCV21 Stage
-
-All metrics are averaged over all cases of all scenarios. The ranking of the single agent prediction is based on **MR**.
-
-### minADE
-It is a simplified version of minJointADE since there is only one vehicle to be predicted:
-
-![](http://latex.codecogs.com/gif.latex?\\text{minADE}=\\min\\limits_{k\\in\\{1,...,K\\}}\\frac1{T}\\sum\\limits_{t}\\sqrt{(\\hat{x}_{t}-x_{t}^k)^2+(\\hat{y}_{t}-y_{t}^k)^2})
-where T is the number of predicted timestamps which is 30 in this challenge, K is the number of modalities in this challenge, $\hat{x}$ and $\hat{y}$ means the ground truth. The final value is averaged over all cases.
-
-### minFDE
-
-Similarly, the minFDE is defined as:
-
-![](http://latex.codecogs.com/gif.latex?\\text{minFDE}=\\min\\limits_{k\\in\\{1,...,K\\}}\\sqrt{(\\hat{x}_{T}-x_{T}^k)^2+(\\hat{y}_{T}-y_{T}^k)^2})
-where T is the number of predicted timestamps which is 30 in this challenge, K is the number of modalities in this challenge, $\hat{x}$ and $\hat{y}$ means the ground truth. The final value is averaged over all cases.
-
-### MR
-
-Miss rate is a simplified version of minJointMR. For each case, if all modalities are 'miss', then this case is a 'miss' - 1. Otherwise, this case is 0.
-
 
 
 ## Acknowledgement
