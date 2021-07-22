@@ -7,7 +7,7 @@ Please first read [the old guideline](http://challenge.interaction-dataset.com/l
 
 The following are the changed parts:
 
-For each scenario X like (DR_CHN_Merging_ZS0), there should be a single file 'X_sub.csv'. The following columns would be used during the evaluation: case_id, track_id, frame_id, timestamp_ms, x1, y1, psi_rad1, x2, y2, psi_rad2, x3, y3, psi_rad3, x4, y4, psi_rad4, x5, y5, psi_rad5, x6, y6, psi_rad6. The order of rows and columns could be arbitrary. 'xi, yi, psi_radi' represents the predicted coordinate and yaw for the vehicle 'track_id' at 'timestamp_ms' in the modality i. Up to 6 modalities would be taken into consideration. Participants could submit less than 6 modalities (like only x1, y1, psi_rad1).
+For each scenario X like (DR_CHN_Merging_ZS0), there should be a single file 'X_sub.csv'. The following columns would be used during the evaluation: case_id, track_id, frame_id, timestamp_ms, interesting_agent, x1, y1, psi_rad1, x2, y2, psi_rad2, x3, y3, psi_rad3, x4, y4, psi_rad4, x5, y5, psi_rad5, x6, y6, psi_rad6. The order of rows and columns could be arbitrary. 'xi, yi, psi_radi' represents the predicted coordinate and yaw for the vehicle 'track_id' at 'timestamp_ms' in the modality i. Up to 6 modalities would be taken into consideration. Participants could submit less than 6 modalities (like only x1, y1, psi_rad1).
 
 All vehicles in the input data with the 'track_to_predict' column as 1 should has predictions for 30 timestamps. Each submission could contain up to 6 modalities where the modality with higher confidence should has smaller index. In other words, modalaity 1 has the highest confidence and modality 6 has the lowest.
 
