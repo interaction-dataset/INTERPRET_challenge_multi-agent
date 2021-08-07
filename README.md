@@ -15,6 +15,8 @@ Csv files for all scenarios should be packed into **a single zip** file for subm
 
 [DR_CHN_Merging_ZS0_sub.csv](https://github.com/interaction-dataset/INTERPRET_challenge_multi-agent/blob/main/DR_CHN_Merging_ZS0_sub.csv) is an example for submission for the scenario DR_CHN_Merging_ZS0. Note that this example file only contains 3 cases and the input is random number.
 
+Note that for both unconditioned and conditioned multi-agent prediction, participants should upload the ego agnet ("interesting_agent")'s predictions since its "track_to_predict" column is 1. However, the ego agnet's predictions would be excluded for all metrics in the multi-agent prediction. Thus, participants are free to upload arbitrary value of (x, y, yaw) which should have equal number of modalities with other "track_to_predict". It only serves as data alignment.
+
 ## Metrics
 All metrics are averaged over all cases of all scenarios. The ranking of multi-agent prediction is based on the **Consistent-minJointMR**.
 
