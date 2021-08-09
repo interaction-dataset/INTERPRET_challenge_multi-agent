@@ -1,6 +1,6 @@
 # INTERPRET Multi-Agent Prediction
 
-In this part, the input is M agents' motion information including coordinates, velocities, yaw, vehicle length and width in the observed 1 second (10 frames) as well as the cooresponding HD map. The target is to predict N (<= M) agents' coordinates and yaw in the future 3 seconds (30 frames). Note that the N agents are selected because they are fully observable during the 1+3 seconds. In addition, one of the N agents is denoted as the 'interesting agent' (csv column 'interesting_agent' as 1) to serve as the ego agent during the evaluation process. 
+In the Multi-Agent Prediction tracks, the target is to jointly predict multiple target agents' coordinates and yaw in the future 3 seconds (30 frames). All target agents are fully observable during the 1+3 seconds.
 
 ## Submission
 Please first read [the old guideline](http://challenge.interaction-dataset.com/leader-board-introduction) for the basic information about the input data and submission. Most of them still applies.
@@ -15,7 +15,7 @@ Csv files for all scenarios should be packed into **a single zip** file for subm
 
 [DR_CHN_Merging_ZS0_sub.csv](https://github.com/interaction-dataset/INTERPRET_challenge_multi-agent/blob/main/DR_CHN_Merging_ZS0_sub.csv) is an example for submission for the scenario DR_CHN_Merging_ZS0. Note that this example file only contains 3 cases and the input is random number.
 
-Note that for both unconditioned and conditioned multi-agent prediction, participants should upload the ego agnet ("interesting_agent")'s predictions since its "track_to_predict" column is 1. However, the ego agnet's predictions would be excluded for all metrics in the multi-agent prediction. Thus, participants are free to upload arbitrary value of (x, y, yaw) which should have equal number of modalities with other "track_to_predict". It only serves as data alignment.
+Note that for both normal and conditional prediction, participants should upload the ego agnet ("interesting_agent")'s predictions since its "track_to_predict" column is 1. However, the ego agnet's predictions would be excluded in all metrics in the multi-agent prediction. Thus, participants are free to upload arbitrary value of (x, y, yaw) which should have equal number of modalities with other "track_to_predict". It only serves as data alignment.
 
 ## Metrics
 All metrics are averaged over all cases of all scenarios. The ranking of multi-agent prediction is based on the **Consistent-minJointMR**.
