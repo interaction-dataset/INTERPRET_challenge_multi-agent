@@ -79,7 +79,6 @@ Many motion prediction models only output x and y. In this challenge, since the 
 
 # Note
 For guidance of **INTERPRET Single Agent Prediction in the ICCV21 Stage**, please visit https://github.com/interaction-dataset/INTERPRET_challenge_single-agent.
-The key difference between the single agent and multi-agent prediction is that: the single agent prediction only outputs one agent's future motion in the scene. In a case of multi-agent prediction, we generate a case in the single-agent prediction for each fully observable vehicle. As a result, the single-agent prediction evaluates model's performance on all agents' marginal multi-modal distribution while the multi-agent prediction on all agents' joint multi-modal distribution.
 
 
 ## Acknowledgement
