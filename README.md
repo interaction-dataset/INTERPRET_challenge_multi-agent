@@ -1,4 +1,4 @@
-# INTERPRET Multi-Agent Prediction
+# INTERPRET Multi-Agent Prediction and Conditional Multi-Agent Prediction
 
 In the Multi-Agent Prediction tracks, the target is to jointly predict multiple target agents' coordinates and yaw in the future 3 seconds (30 frames). All target agents are fully observable during the 1+3 seconds.
 
@@ -78,7 +78,7 @@ This metric is to encourge the prediction model to make consistent predictions. 
 Many motion prediction models only output x and y. In this challenge, since the collision detecton has taken the vehicles' length and width into consideration, we need the vehicles' yaw angle as well. We strongly suggest the participants to visualize their predictions in the form of the bounding box. If the yaw angle is calculated by first taking difference over time to get velocity and then taking the arctan to obtain yaw, the unsmoothed yaw angle may cause collisions.
 
 # Note
-For guidance of **INTERPRET Single Agent Prediction in the ICCV21 Stage**, please visit https://github.com/interaction-dataset/INTERPRET_challenge_single-agent.
+For guidance of **INTERPRET Single Agent Prediction and Conditional Single Agent Prediction in the ICCV21 Stage**, please visit https://github.com/interaction-dataset/INTERPRET_challenge_single-agent.
 
 
 ## Acknowledgement
