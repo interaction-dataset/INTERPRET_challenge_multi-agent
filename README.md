@@ -1,6 +1,6 @@
 # INTERPRET Multi-Agent Prediction and Conditional Multi-Agent Prediction
 
-In the Multi-Agent Prediction and Conditional Multi-Agent Prediction track, the target is to jointly predict multiple target agents' coordinates and yaw in the future 3 seconds (30 frames). All target agents are fully observable during the 1+3 seconds.
+In the Multi-Agent Prediction and Conditional Multi-Agent Prediction track, the target is to jointly predict multiple target agents' **coordinates and yaw** in the future 3 seconds (30 frames). All target agents are fully observable during the 1+3 seconds. Regarding the yaw prediction, please refer to the Regarding the Predicted Yaw Angle of this page.
 
 ## Submission
 Please first read [the old guideline](http://challenge.interaction-dataset.com/leader-board-introduction) for the basic information about the input data and submission. Most of them still applies.
