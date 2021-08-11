@@ -42,7 +42,7 @@ For each csv file in the released "test_multi-agent" and "test_conditional-multi
 
 1. There are only 1 second observation of each case. The future 3 seconds is the prediction horizon.
  
-2. Additional columns:  "interesting agent" indicates whether a vehicle is the ego agent of the case where 0 means no and 1 means yes. Each case only has one "interesting agent".  "track_to_predict" indicates whether a vehicle is a target agent for the trajectory prediction. All target agents are guaranteed to be fully observable in the 1+3 seconds of the raw data. Only vehicles are selected as the ego agent or the target agent.  Regarding how the columns are labeled please check the [main page of the competition](http://challenge.interaction-dataset.com/prediction-challenge/intro). Participants are free to set the strategy of setting "interesting agent" and  "track_to_predict" in the train/val data.
+2. Additional columns:  "interesting agent" indicates whether a vehicle is the ego agent of the case where 0 means no and 1 means yes. Each case only has one "interesting agent".  "track_to_predict" indicates whether a vehicle is a target agent for the trajectory prediction. All target agents are guaranteed to be fully observable in the 1+3 seconds of the raw data. Only vehicles are selected as the ego agent or the target agent.  Regarding how the columns are labeled please check the [main page of the competition](http://challenge.interaction-dataset.com/prediction-challenge/intro). Participants are free to decide the strategy of setting "interesting agent" and  "track_to_predict" in the train/val data.
 
 
 ## Submission
