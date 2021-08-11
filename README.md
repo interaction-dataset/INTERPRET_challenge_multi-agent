@@ -11,7 +11,7 @@ The trajectory prediction results will be evaluated automatically and participan
 
 ## Data Format
 
-For each csv file in the released "train" and "val" folder, the csv's name represents the scene name.  Each csv file include multiple cases and each case includes all agents' states in 4 seconds. Note that some agents may not be fully visible in the 4 seconds. In the csv file, each row represents a agent's state at a timestamp of a case and each columns means:
+For each csv file in the released "train" and "val" folder, the csv's name represents the scene name.  Each csv file includes multiple cases and each case includes all agents' states in 4 seconds. Note that some agents may not be fully visible in the 4 seconds. In the csv file, each row represents a agent's state at a timestamp of a case and each columns means:
 
 case id: the id of the case under this driving scenario.
 
