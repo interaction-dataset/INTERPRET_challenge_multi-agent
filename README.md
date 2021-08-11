@@ -2,23 +2,63 @@
 
 In the Multi-Agent Prediction and Conditional Multi-Agent Prediction track, the target is to jointly predict multiple target agents' **coordinates and yaw** in the future 3 seconds (30 frames). All target agents are fully observable during the 1+3 seconds. Regarding the yaw prediction, please refer to the Regarding the Predicted Yaw Angle of this page.
 
-## Submission
-Please first read [the old guideline](http://challenge.interaction-dataset.com/leader-board-introduction) for the basic information about the input data and submission. Most of them still applies.
+## Submission Policy
+The provided training data of the INTERPRET challenge may be used for learning the parameters of the algorithms. The test data should be used strictly for reporting the final results compared to competitors on the INTERPRET website - it must not be used in any way to train or tune the systems, for example by evaluating multiple parameters or feature choices and reporting the best results obtained. We have provided a suggested split between the training and validation sets using the INTERACTION drone dataset, and the participants can choose to use that. The tuned algorithms should then be run only once on the test data.
 
-The following are the changed parts:
+The evaluation server may not be used for parameter tuning. We allow participants to upload the results of their algorithm onto the server and perform all other experiments on the training and validation set.
+
+The trajectory prediction results will be evaluated automatically and participants can decide whether each evaluation result is public in their submission log pages. The default is non-public.
+
+## Data Format
+
+For each csv file in the released "train" and "val" folder, the csv's name represents the scene name.  Each csv file include multiple cases and each case includes all agents' states in 4 seconds. Note that some agents may not be fully visible in the 4 seconds. In the csv file, each row represents a agent's state at a timestamp of a case and each columns means:
+
+case id: the id of the case under this driving scenario.
+
+track_id: the agent id.
+
+frame_id: the id of the current frame.
+
+timestamp_ms: the time instant of the corresponding frame in ms.
+
+agent_type: the type of the agent. It is either "car" or "pedestrian/bicycle".
+
+x: the x position of the agent. Unit: m. The coordinate system of the agent is a relative coordinate system with respect to some predefined points in our recorded scenes.
+
+y: the x position of the agent. Unit: m. The coordinate system of the agent is a relative coordinate system with respect to some predefined points in our recorded scenes.
+
+vx: the velocity in the x-direction of the agent. Unit: m/s.
+
+vy: the velocity in the y-direction of the agent. Unit: m/s.
+
+psi_rad: the yaw angle of the agent if the agent is a vehicle. If the agent is a pedestrian, then this column is empty. Unit: rad.
+
+length: the length(size) of the agent if the agent is a vehicle. If the agent is a pedestrian, then this column is empty. Unit: m.
+
+width: the width(size) of the agent if the agent is a vehicle. If the agent is a pedestrian, then this column is empty. Unit: m.
+
+
+For each csv file in the released "test_multi-agent" and "test_conditional-multi-agent" folder, since they are the input data of the competition, there are the following differences:
+
+1. There are only 1 second observation of each case. The future 3 seconds is the prediction horizon.
+ 
+2. Additional columns:  “interesting agent” indicates whether a vehicle is the ego agent of the case. 0 - no and 1 - yes. Each case only has one “interesting agent”.  “track_to_predict” indicates whether a vehicle is a target agent for the trajectory prediction. All target agents are guaranteed to be fully observable in the 1+3 seconds of the raw data. 
+ 
+
+
+## Submission
 
 For each scenario X like (DR_CHN_Merging_ZS0), there should be a single file 'X_sub.csv'. The following columns would be used during the evaluation: case_id, track_id, frame_id, timestamp_ms, interesting_agent, x1, y1, psi_rad1, x2, y2, psi_rad2, x3, y3, psi_rad3, x4, y4, psi_rad4, x5, y5, psi_rad5, x6, y6, psi_rad6. The order of rows and columns could be arbitrary. 'xi, yi, psi_radi' represents the predicted coordinate and yaw for the vehicle 'track_id' at 'timestamp_ms' in the modality i. Up to 6 modalities would be taken into consideration. Participants could submit less than 6 modalities (like only x1, y1, psi_rad1).
 
-In the released data, the column “interesting agent” indicates whether a vehicle is the ego agent and the column “track_to_predict” indicates whether a vehicle is a target agent. All vehicles in the input data with the 'track_to_predict' column as 1 should has predictions for 30 timestamps. Each submission could contain up to 6 modalities where the modality with higher confidence should has smaller index. In other words, modalaity 1 has the highest confidence and modality 6 has the lowest.
+Note that participants should upload the ego agnet ("interesting_agent")'s predictions since its "track_to_predict" column is 1. However, the ego agnet's predictions would be excluded in all metrics. Thus, participants are free to upload arbitrary value of (x, y, yaw) which should have equal number of modalities with other "track_to_predict". It only serves as data alignment. All vehicles in the input data with the 'track_to_predict' column as 1 should has predictions for 30 timestamps. Each submission could contain up to 6 modalities where the modality with higher confidence should has smaller index. In other words, modalaity 1 has the highest confidence and modality 6 has the lowest.
 
 Csv files for all scenarios should be packed into **a single zip** file for submission.
 
 [DR_CHN_Merging_ZS0_sub.csv](https://github.com/interaction-dataset/INTERPRET_challenge_multi-agent/blob/main/DR_CHN_Merging_ZS0_sub.csv) is an example for submission for the scenario DR_CHN_Merging_ZS0. Note that this example file only contains 3 cases and the input is random number.
 
-Note that for both normal and conditional prediction, participants should upload the ego agnet ("interesting_agent")'s predictions since its "track_to_predict" column is 1. However, the ego agnet's predictions would be excluded in all metrics in the multi-agent prediction. Thus, participants are free to upload arbitrary value of (x, y, yaw) which should have equal number of modalities with other "track_to_predict". It only serves as data alignment.
 
 ## Metrics
-All metrics are averaged over all cases of all scenarios. The ranking of multi-agent prediction is based on the **Consistent-minJointMR**.
+All metrics are averaged over all cases of all scenarios. The ranking of both tracks is based on the **Consistent-minJointMR**.
 
 ### minJointADE
 Minimum Joint Average Displacement Error (minJointADE) represents the minimum value of the euclid distance averaged by time and all agents between the ground truth and modality with the lowest value. The minJointADE of a single case is calculated as:
