@@ -111,7 +111,7 @@ Consistent-minJointMR has the same computation process except that when taking t
 
 This metric is to encourge the prediction model to make consistent predictions. If a modality in its prediction contains collisions, it 'wastes' this attempt. It is the ranking metric.
 
-### Regarding the Predicted Yaw Angle
+## Regarding the Predicted Yaw Angle
 Many motion prediction models only output x and y. In this challenge, since the collision detecton has taken the vehicles' length and width into consideration, we need the vehicles' yaw angle as well. We strongly suggest the participants to visualize their predictions in the form of the bounding box. If the yaw angle is calculated by first taking difference over time to get velocity and then taking the arctan to obtain yaw, the unsmoothed yaw angle may cause collisions.
 
 # Note
